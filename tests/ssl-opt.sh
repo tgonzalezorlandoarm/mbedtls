@@ -167,6 +167,9 @@ get_options() {
             -p|--preserve-logs)
                 PRESERVE_LOGS=1
                 ;;
+            --outcome-file)
+                shift; MBEDTLS_TEST_OUTCOME_FILE=$1
+                ;;
             --port)
                 shift; SRV_PORT=$1
                 ;;
@@ -190,18 +193,10 @@ get_options() {
     done
 }
 
-# Make the outcome file path relative to the original directory, not
-# to .../tests
-case "$MBEDTLS_TEST_OUTCOME_FILE" in
-    [!/]*)
-        MBEDTLS_TEST_OUTCOME_FILE="$ORIGINAL_PWD/$MBEDTLS_TEST_OUTCOME_FILE"
-        ;;
-esac
-
-# Read boolean configuration options from config.h for easy and quick
-# testing. Skip non-boolean options (with something other than spaces
-# and a comment after "#define SYMBOL"). The variable contains a
-# space-separated list of symbols.
+# Read boolean configuration options from mconfig.h for easy and quick testing.
+# Skip non-boolean options (with something other than spaces and a comment
+# after "#define SYMBOL"). The variable contains a space-separated list of
+#symbols.
 CONFIGS_ENABLED=" $(echo `$P_QUERY -l` )"
 # Skip next test; use this macro to skip tests which are legitimate
 # in theory and expected to be re-introduced at some point, but
@@ -1391,6 +1386,14 @@ cleanup() {
 #
 
 get_options "$@"
+
+# Make the outcome file path relative to the original directory, not
+# to .../tests
+case "$MBEDTLS_TEST_OUTCOME_FILE" in
+    [!/]*)
+        MBEDTLS_TEST_OUTCOME_FILE="$ORIGINAL_PWD/$MBEDTLS_TEST_OUTCOME_FILE"
+        ;;
+esac
 
 # Optimize filters: if $FILTER and $EXCLUDE can be expressed as shell
 # patterns rather than regular expressions, use a case statement instead
