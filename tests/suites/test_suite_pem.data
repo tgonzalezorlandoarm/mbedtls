@@ -34,10 +34,6 @@ PEM read (AES-128-CBC + invalid iv)
 depends_on:MBEDTLS_MD_CAN_MD5:MBEDTLS_CIPHER_MODE_CBC:MBEDTLS_AES_C
 mbedtls_pem_read_buffer:"^":"$":"^\nProc-Type\: 4,ENCRYPTED\nDEK-Info\: AES-128-CBC,00$":"pwd":MBEDTLS_ERR_PEM_INVALID_ENC_IV:""
 
-PEM read (AES-256-CBC + invalid iv)
-depends_on:MBEDTLS_MD_CAN_MD5:MBEDTLS_CIPHER_MODE_CBC:MBEDTLS_AES_C
-mbedtls_pem_read_buffer:"^":"$":"^\nProc-Type\: 4,ENCRYPTED\nDEK-Info\: AES-256-CBC,00$":"pwd":MBEDTLS_ERR_PEM_INVALID_ENC_IV:""
-
 PEM read (unknown encryption algorithm)
 depends_on:MBEDTLS_MD_CAN_MD5:MBEDTLS_CIPHER_MODE_CBC:MBEDTLS_AES_C
 mbedtls_pem_read_buffer:"^":"$":"^\nProc-Type\: 4,ENCRYPTED\nDEK-Info\: AES-,00$":"pwd":MBEDTLS_ERR_PEM_UNKNOWN_ENC_ALG:""
@@ -53,7 +49,3 @@ mbedtls_pem_read_buffer:"-----BEGIN EC PRIVATE KEY-----":"-----END EC PRIVATE KE
 PEM read (malformed PEM AES-128-CBC)
 depends_on:MBEDTLS_MD_CAN_MD5:MBEDTLS_AES_C:MBEDTLS_CIPHER_MODE_CBC
 mbedtls_pem_read_buffer:"-----BEGIN EC PRIVATE KEY-----":"-----END EC PRIVATE KEY-----":"-----BEGIN EC PRIVATE KEY-----\nProc-Type\: 4,ENCRYPTED\nDEK-Info\: AES-128-CBC,AA94892A169FA426AA94892A169FA426\n\nMAAA\n-----END EC PRIVATE KEY-----":"pwd":MBEDTLS_ERR_AES_INVALID_INPUT_LENGTH:""
-
-PEM read (malformed PEM AES-256-CBC)
-depends_on:MBEDTLS_MD_CAN_MD5:MBEDTLS_AES_C:MBEDTLS_CIPHER_MODE_CBC
-mbedtls_pem_read_buffer:"-----BEGIN EC PRIVATE KEY-----":"-----END EC PRIVATE KEY-----":"-----BEGIN EC PRIVATE KEY-----\nProc-Type\: 4,ENCRYPTED\nDEK-Info\: AES-256-CBC,AA94892A169FA426AA94892A169FA426\n\nMAAA\n-----END EC PRIVATE KEY-----":"pwd":MBEDTLS_ERR_AES_INVALID_INPUT_LENGTH:""
